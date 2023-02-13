@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/widgets/body/body.dart';
 import 'package:my_portfolio/widgets/header/header.dart';
+import 'package:my_portfolio/widgets/social/social_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,11 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             title: Header()
           )),
-          body: Column(
+          body: Stack(
             children: [
-
+              BodyWidget(),
+              Positioned(
+                left: 0,
+                top: MediaQuery.of(context).size.height * 0.3,
+                child: SocialBar(isFooter: false,)
+              )
             ],
-          ),
+          )
     );
   }
 }
