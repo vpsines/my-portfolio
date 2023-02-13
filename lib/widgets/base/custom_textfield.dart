@@ -10,7 +10,7 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       required this.label,
       required this.hintText,
-      this.maxLines =1});
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +22,25 @@ class CustomTextField extends StatelessWidget {
           style: const TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         TextFormField(
           controller: controller,
           maxLines: maxLines,
           decoration: InputDecoration(
-            
-            hintText: hintText,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.black)),
-            hintStyle: const TextStyle(color: Colors.blueGrey)
-          ),
+              filled: true,
+              fillColor: Colors.white54,
+              hintText: hintText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.black),
+              ),
+              hintStyle: const TextStyle(color: Colors.blueGrey)),
         ),
-                const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
       ],
     );
   }
