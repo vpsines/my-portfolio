@@ -35,9 +35,9 @@ class _ContactState extends State<Contact> {
           style: TextStyle(
               fontSize: 22, fontWeight: FontWeight.w700, color: Colors.black),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        SizedBox(
+              height: size.height * 0.075,
+            ),
         const Text(
           "Feel free to Contact me by submitting the form below and I will get back to you as soon as possible",
           style: TextStyle(
@@ -78,7 +78,10 @@ class _ContactState extends State<Contact> {
                   )
                 ],
               )),
-        )
+        ),
+         SizedBox(
+          height: size.height * 0.1,
+        ),
       ],
     );
   }
