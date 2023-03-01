@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/utils/custom_app_icons.dart';
+import 'package:my_portfolio/utils/url_launcher_utils.dart';
+import 'package:my_portfolio/widgets/base/custom_icon_button.dart';
 
 class SocialBar extends StatelessWidget {
   final bool isFooter;
@@ -6,41 +9,36 @@ class SocialBar extends StatelessWidget {
   SocialBar({super.key, this.isFooter = false});
 
   final List<Widget> socialIcons = [
-    IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          Icons.facebook,
-          size: 32,
-          color: Colors.black,
-        )),
-    IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          Icons.facebook,
-          size: 32,
-          color: Colors.black,
-        )),
-    IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          Icons.facebook,
-          size: 32,
-          color: Colors.black,
-        )),
-    IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          Icons.facebook,
-          size: 32,
-          color: Colors.black,
-        )),
-    IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          Icons.facebook,
-          size: 32,
-          color: Colors.black,
-        )),
+    CustomIconButton(
+      onTap: () async {
+        await viewGitHubProfile();
+      },
+      icon: CustomAppIcons.github,
+    ),
+    CustomIconButton(
+      onTap: () async {
+        await viewLinkedInProfile();
+      },
+      icon: CustomAppIcons.linkedin,
+    ),
+    CustomIconButton(
+      onTap: () async {
+        await viewInstagram();
+      },
+      icon: CustomAppIcons.instagram,
+    ),
+    CustomIconButton(
+      onTap: () async {
+        await viewFreeCodeCamp();
+      },
+      icon: CustomAppIcons.free_code_camp,
+    ),
+    CustomIconButton(
+      onTap: () async {
+        await viewLeetcode();
+      },
+      icon: CustomAppIcons.leetcode,
+    ),
   ];
 
   @override
@@ -48,24 +46,24 @@ class SocialBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8),
       child: Material(
-        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Colors.transparent,
         child: (isFooter)
             ? Row(
                 children: socialIcons,
               )
             : SizedBox(
-              height: 250,
-              width: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                height: 250,
+                width: 50,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: socialIcons,
                   ),
+                ),
               ),
-            ),
       ),
     );
   }
