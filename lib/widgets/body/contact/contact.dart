@@ -27,62 +27,65 @@ class _ContactState extends State<Contact> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Text(
-          "Contact",
-          style: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.w700, color: Colors.black),
-        ),
-        SizedBox(
-              height: size.height * 0.075,
-            ),
-        const Text(
-          "Feel free to Contact me by submitting the form below and I will get back to you as soon as possible",
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-          width: size.width * 0.7,
-          color: Colors.white,
-          child: Form(
-              key: contactFormKey,
-              child: Column(
-                children: [
-                  CustomTextField(
-                    controller: nameController,
-                    label: 'Name',
-                    hintText: 'Enter your name',
-                  ),
-                  CustomTextField(
-                    controller: emailController,
-                    label: 'Email',
-                    hintText: 'Enter your email',
-                  ),
-                  CustomTextField(
-                    controller: messageController,
-                    label: 'Message',
-                    hintText: 'Enter your message',
-                    maxLines: 6,
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: CustomButton(
-                      buttonText: "SUMBIT",
-                      onTap: () {},
+    return SizedBox(
+      height: size.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            "Contact",
+            style: TextStyle(
+                fontSize: 22, fontWeight: FontWeight.w700, color: Colors.black),
+          ),
+          SizedBox(
+                height: size.height * 0.075,
+              ),
+          const Text(
+            "Feel free to Contact me by submitting the form below and I will get back to you as soon as possible",
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: size.width * 0.7,
+            color: Colors.white,
+            child: Form(
+                key: contactFormKey,
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      controller: nameController,
+                      label: 'Name',
+                      hintText: 'Enter your name',
                     ),
-                  )
-                ],
-              )),
-        ),
-         SizedBox(
-          height: size.height * 0.1,
-        ),
-      ],
+                    CustomTextField(
+                      controller: emailController,
+                      label: 'Email',
+                      hintText: 'Enter your email',
+                    ),
+                    CustomTextField(
+                      controller: messageController,
+                      label: 'Message',
+                      hintText: 'Enter your message',
+                      maxLines: 6,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: CustomButton(
+                        buttonText: "SUMBIT",
+                        onTap: () {},
+                      ),
+                    )
+                  ],
+                )),
+          ),
+           SizedBox(
+            height: size.height * 0.1,
+          ),
+        ],
+      ),
     );
   }
 }
