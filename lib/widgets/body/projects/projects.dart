@@ -3,6 +3,8 @@ import 'package:my_portfolio/widgets/body/projects/project_tile.dart';
 import 'package:my_portfolio/widgets/body/projects/recent_project_item.dart';
 
 class Projects extends StatefulWidget {
+  static const String pageName = 'projects';
+
   const Projects({super.key});
 
   @override

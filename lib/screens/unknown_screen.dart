@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UnkownScreen extends StatelessWidget {
+  static const String routeName = '/unknown';
+
   const UnkownScreen({super.key});
 
   @override

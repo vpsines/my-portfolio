@@ -3,6 +3,8 @@ import 'package:my_portfolio/widgets/body/about/profile_avatar.dart';
 import 'package:my_portfolio/widgets/body/about/skills_bar.dart';
 
 class About extends StatelessWidget {
+  static const String pageName = 'about';
+
   const About({super.key});
 
   @override

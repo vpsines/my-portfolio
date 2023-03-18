@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Experiences extends StatefulWidget {
+  static const String pageName = 'experiences';
+
   const Experiences({super.key});
 
   @override
