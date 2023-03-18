@@ -1,16 +1,23 @@
-class PageCongiuration {
+class PageConfiguration {
   final String? pageName;
   final bool unknown;
 
-  PageCongiuration.home({required pageName})
+  PageConfiguration.home()
+      : pageName = null,
+        unknown = false;
+
+  PageConfiguration.page({required pageName})
       : pageName = pageName,
         unknown = false;
 
-  PageCongiuration.unknown()
+  PageConfiguration.unknown()
       : unknown = true,
         pageName = null;
 
   bool get isUnknown => unknown == true;
 
-  bool get isHomePage => unknown == false && pageName != null;
+  bool get isHomePage => unknown == false && pageName == null;
+
+  bool get isPage => unknown == false && pageName != null;
+
 }
