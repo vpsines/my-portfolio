@@ -1,19 +1,32 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/widgets/body/about/about.dart';
 import 'package:my_portfolio/widgets/body/body.dart';
+import 'package:my_portfolio/widgets/body/contact/contact.dart';
+import 'package:my_portfolio/widgets/body/experiences/experiences.dart';
+import 'package:my_portfolio/widgets/body/intro/intro.dart';
+import 'package:my_portfolio/widgets/body/projects/projects.dart';
 import 'package:my_portfolio/widgets/header/header.dart';
 import 'package:my_portfolio/widgets/social/social_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+  final ValueNotifier<String?> currentPageNotifier;
+  const HomeScreen({super.key, required this.currentPageNotifier});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ValueNotifier<int?> headerNotifier = ValueNotifier(0);
+  late ValueNotifier<int?> headerNotifier;
   final ValueNotifier<bool> isHeaderItemPressed = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    setPageIndex();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 valueListenable: isHeaderItemPressed,
                 builder: (BuildContext context, bool? value, Widget? child) {
                   return BodyWidget(
-                    sectionNotifier: headerNotifier,
+                    pageNotifier: headerNotifier,
                     isHeaderItemPressed: isHeaderItemPressed,
                   );
                 }),
@@ -61,5 +74,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 ))
           ],
         ));
+  }
+
+  void setPageIndex() {
+    int index = 0;
+
+    if (widget.currentPageNotifier.value != null) {
+      switch (widget.currentPageNotifier.value) {
+        case IntroWidget.pageName:
+          index = 0;
+          break;
+        case About.pageName:
+          index = 1;
+          break;
+        case Experiences.pageName:
+          index = 2;
+          break;
+        case Projects.pageName:
+          index = 3;
+          break;
+        case Contact.pageName:
+          index = 4;
+          break;
+        default:
+          index = 4;
+          break;
+      }
+    }
+
+    setState(() {
+      headerNotifier = ValueNotifier(index);
+    });
   }
 }
