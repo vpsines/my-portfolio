@@ -23,9 +23,9 @@ class PageRouterDelegate extends RouterDelegate<PageConfiguration>
   PageRouterDelegate({required this.pages}) {
     // initialize home page
 
-    _homePage = const MaterialPage(
-      key: ValueKey<String>("Homepage"),
-      child: HomeScreen(),
+    _homePage =  MaterialPage(
+      key: const ValueKey<String>("Homepage"),
+      child: HomeScreen(currentPageNotifier: _pageNotifier,),
     );
 
     // add listeners
@@ -46,7 +46,9 @@ class PageRouterDelegate extends RouterDelegate<PageConfiguration>
               const MaterialPage(
                   key: ValueKey<String>("Unknown"), child: UnkownScreen())
             ]
-          : [],
+          : [
+            _homePage
+          ],
       onPopPage: (route, result) {
         if (!route.didPop(result)) return false;
         return true;

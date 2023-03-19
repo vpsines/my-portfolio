@@ -7,24 +7,28 @@ import 'package:my_portfolio/widgets/body/projects/projects.dart';
 import 'package:my_portfolio/widgets/footer/footer.dart';
 
 class BodyWidget extends StatefulWidget {
+
   final ValueNotifier<bool> isHeaderItemPressed;
-  final ValueNotifier<int?> sectionNotifier;
+  final ValueNotifier<int?> pageNotifier;
+
   const BodyWidget(
       {super.key,
       required this.isHeaderItemPressed,
-      required this.sectionNotifier});
+      required this.pageNotifier});
 
   @override
   State<BodyWidget> createState() => _BodyWidgetState();
 }
 
 class _BodyWidgetState extends State<BodyWidget> {
+
   final ScrollController _scrollController = ScrollController();
   List<GlobalKey> keys = [for (int i = 0; i < 5; i++) GlobalKey()];
 
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollToSection();
       widget.isHeaderItemPressed.addListener(() {
@@ -85,7 +89,7 @@ class _BodyWidgetState extends State<BodyWidget> {
   void scrollToSection() {
     print('scrolled');
     Scrollable.ensureVisible(
-      keys[widget.sectionNotifier.value!].currentContext!,
+      keys[widget.pageNotifier.value!].currentContext!,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
@@ -96,7 +100,8 @@ class _BodyWidgetState extends State<BodyWidget> {
     double totalItemHeight = 0;
     for (int i = 0; i < keys.length; i++) {
       totalItemHeight += keys[i].currentContext!.size!.height;
-      if (totalItemHeight > offset) {
+      if (totalItemHeight > offset && widget.pageNotifier.value !=i) {
+        //widget.pageNotifier.value = i;
         break;
       }
     }
