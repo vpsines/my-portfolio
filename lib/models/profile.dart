@@ -14,7 +14,7 @@ final String about;
       : this(
             about: documentSnapshot.get("about"),
             profileUrl: documentSnapshot.get("profileUrl"),
-            skills: documentSnapshot.get("skills")
+            skills: documentSnapshot.get("skills").map<String>((e) => e as String).toList()
             );
 }
 
