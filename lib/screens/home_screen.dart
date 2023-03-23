@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/providers/data_provider.dart';
 import 'package:my_portfolio/widgets/body/body.dart';
 import 'package:my_portfolio/widgets/header/header.dart';
 import 'package:my_portfolio/widgets/social/social_bar.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +16,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ValueNotifier<int?> headerNotifier = ValueNotifier(0);
   final ValueNotifier<bool> isHeaderItemPressed = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async{
+    await context.read<DataProvider>().getProfile();
+  } 
 
   @override
   Widget build(BuildContext context) {
