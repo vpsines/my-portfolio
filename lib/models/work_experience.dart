@@ -20,5 +20,5 @@ class WorkExperience {
             endingPeriod: documentSnapshot.get("endingPeriod"),
             role: documentSnapshot.get("role"),
             companyName: documentSnapshot.get("companyName"),
-            points: documentSnapshot.get("points") ?? []);
+            points: documentSnapshot.get("points").map<String>((e) => e as String).toList() ?? []);
 }

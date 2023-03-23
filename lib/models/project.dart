@@ -30,14 +30,14 @@ class Project {
       : this(
             name: documentSnapshot.get("name"),
             description: documentSnapshot.get("description"),
-            techStacks: documentSnapshot.get("techStacks"),
+            techStacks: documentSnapshot.get("techStacks").map<String>((e) => e as String).toList(),
             isAvailableOnPlaystore:
                 documentSnapshot.get("isAvailableOnPlaystore"),
             playStoreUrl: documentSnapshot.get("playStoreUrl"),
             githubUrl: documentSnapshot.get("githubUrl"),
             isAvailableOnGithub: documentSnapshot.get("isAvailableOnGithub"),
             backgroundUrl: documentSnapshot.get("backgroundUrl"),
-            screenshots: documentSnapshot.get("screenshots"),
-            summaryPoints: documentSnapshot.get("summaryPoints"),
+            screenshots: documentSnapshot.get("screenshots").map<String>((e) => e as String).toList(),
+            summaryPoints: documentSnapshot.get("summaryPoints").map<String>((e) => e as String).toList(),
             isTopThree: documentSnapshot.get("isTopThree"));
 }
