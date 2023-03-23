@@ -8,7 +8,7 @@ class DatabaseServices {
   static const String experienceCollection = "Experiences";
   static const String infoCollection = 'Info';
 
-  static const String profileDocument = "profile";
+  static const String profileDocument = "about";
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
