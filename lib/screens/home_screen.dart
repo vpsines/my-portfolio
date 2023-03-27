@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/widgets/body/about/about.dart';
+import 'package:my_portfolio/providers/data_provider.dart';
 import 'package:my_portfolio/widgets/body/body.dart';
 import 'package:my_portfolio/widgets/body/contact/contact.dart';
 import 'package:my_portfolio/widgets/body/experiences/experiences.dart';
@@ -8,6 +9,7 @@ import 'package:my_portfolio/widgets/body/intro/intro.dart';
 import 'package:my_portfolio/widgets/body/projects/projects.dart';
 import 'package:my_portfolio/widgets/header/header.dart';
 import 'package:my_portfolio/widgets/social/social_bar.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -26,7 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     setPageIndex();
+        loadData();
   }
+
+  Future<void> loadData() async{
+    await context.read<DataProvider>().initData();
+  } 
 
   @override
   Widget build(BuildContext context) {
