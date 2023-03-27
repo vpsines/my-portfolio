@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/firebase_options.dart';
 import 'package:my_portfolio/providers/data_provider.dart';
-import 'package:my_portfolio/screens/data_screen.dart';
 import 'package:my_portfolio/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
