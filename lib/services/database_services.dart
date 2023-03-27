@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:my_portfolio/models/profile.dart';
 import 'package:my_portfolio/models/project.dart';
 import 'package:my_portfolio/models/work_experience.dart';
@@ -12,7 +15,7 @@ class DatabaseServices {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Stream<List<Project>> getProjects() {
+  Stream<List<Project>> fetchProjects() {
     return firestore.collection(projectCollection).snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Project.fromDocumentSnapshot(doc)).toList());
   }
@@ -35,6 +38,29 @@ class DatabaseServices {
       });
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<List<Project>> getProjects() async {
+    try {
+      return await firestore.collection(projectCollection).get().then((value) {
+        return value.docs.map((e) => Project.fromDocumentSnapshot(e)).toList();
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> saveToFirestore() async {
+    try {
+      final json = await rootBundle.loadString('data.json');
+      final encodedJson = jsonDecode(json);
+
+      for(var i in encodedJson){
+        await firestore.collection(projectCollection).add(i);
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }
