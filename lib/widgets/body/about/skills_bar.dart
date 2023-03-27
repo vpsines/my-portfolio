@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/providers/data_provider.dart';
+import 'package:provider/provider.dart';
 
 class SkillsBar extends StatelessWidget {
   SkillsBar({super.key});
@@ -9,7 +11,8 @@ class SkillsBar extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Column(
+    return Consumer<DataProvider>(builder: (context, dataProvider, child) {
+      return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
@@ -26,8 +29,8 @@ class SkillsBar extends StatelessWidget {
         SizedBox(
           height: size.height * 0.025,
         ),
-        Wrap(
-          children: skills
+        (dataProvider.profile != null)?Wrap(
+          children: dataProvider.profile!.skills
               .map((e) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Container(
@@ -35,7 +38,7 @@ class SkillsBar extends StatelessWidget {
                       width: size.width * 0.05,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
+                          boxShadow:const [
                             BoxShadow(
                                 blurRadius: 5,
                                 spreadRadius: 4,
@@ -55,8 +58,9 @@ class SkillsBar extends StatelessWidget {
                     ),
                   ))
               .toList(),
-        )
+        ):Container()
       ],
     );
+    },);
   }
 }

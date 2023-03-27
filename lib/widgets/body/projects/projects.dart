@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/providers/data_provider.dart';
 import 'package:my_portfolio/widgets/body/projects/project_tile.dart';
 import 'package:my_portfolio/widgets/body/projects/recent_project_item.dart';
+import 'package:provider/provider.dart';
 
 class Projects extends StatefulWidget {
   const Projects({super.key});
@@ -16,7 +18,9 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Column(
+    return Consumer<DataProvider>(
+      builder: (_,dataProvider,child){
+        return Column(
       children: [
         const Text(
           "My Recent works",
@@ -33,9 +37,10 @@ class _ProjectsState extends State<Projects> {
           physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: 3,
+          itemCount: dataProvider.recentProjects.length,
           itemBuilder: (context, index) {
             return RecentProjectItem(
+              project: dataProvider.recentProjects[index],
               isLeftAlign: index % 2 == 0 ? false : true,
             );
           },
@@ -63,14 +68,14 @@ class _ProjectsState extends State<Projects> {
                 crossAxisSpacing: 15,
                 childAspectRatio: 2.75),
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: isMorePressed ? 12 : 6,
+            itemCount:dataProvider.otherProjects.length > 6 ? isMorePressed ? dataProvider.otherProjects.length  : 6 : dataProvider.otherProjects.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return const ProjectTile();
+              return ProjectTile(project:dataProvider.otherProjects[index]);
             },
           ),
         ),
-        Padding(
+        (dataProvider.otherProjects.length > 6)?Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: TextButton(
             onPressed: () {
@@ -87,8 +92,10 @@ class _ProjectsState extends State<Projects> {
                   letterSpacing: 1),
             ),
           ),
-        )
+        ):Container()
       ],
+    );
+      },
     );
   }
 }
