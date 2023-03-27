@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/models/project.dart';
 
 class ProjectTile extends StatefulWidget {
-  const ProjectTile({super.key});
+  final Project project;
+
+  const ProjectTile({super.key,required this.project});
 
   @override
   State<ProjectTile> createState() => _ProjectTileState();
@@ -9,7 +12,6 @@ class ProjectTile extends StatefulWidget {
 
 class _ProjectTileState extends State<ProjectTile> {
   bool isHovering = false;
-  final List<String> usedStacks = ["Flutter", "Node.js", "Visual Studio"];
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,9 @@ class _ProjectTileState extends State<ProjectTile> {
             Container(
               width: size.width * 0.3,
               height: 200,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/project.jpg'),
+                  image: NetworkImage(widget.project.backgroundUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -51,9 +53,9 @@ class _ProjectTileState extends State<ProjectTile> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        "Project 1",
-                        style: TextStyle(
+                       Text(
+                        widget.project.name,
+                        style:const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -63,9 +65,9 @@ class _ProjectTileState extends State<ProjectTile> {
                         height: 10,
                       ),
                       (isHovering)
-                          ? const Text(
-                              "Small description",
-                              style: TextStyle(
+                          ?  Text(
+                              widget.project.description,
+                              style:const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black,
@@ -82,12 +84,12 @@ class _ProjectTileState extends State<ProjectTile> {
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemCount: usedStacks.length,
+                                itemCount: widget.project.techStacks.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.only(right: 16),
                                     child: Text(
-                                      usedStacks[index],
+                                      widget.project.techStacks[index],
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
@@ -106,7 +108,9 @@ class _ProjectTileState extends State<ProjectTile> {
                 top: 0,
                 right: 0,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                      
+                  },
                   child: const Icon(
                     Icons.facebook_outlined,
                     size: 30,

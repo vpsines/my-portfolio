@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadData() async{
-    await context.read<DataProvider>().getProfile();
+    await context.read<DataProvider>().initData();
   } 
 
   @override

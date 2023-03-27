@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/models/project.dart';
 
 class RecentProjectItem extends StatelessWidget {
   final bool isLeftAlign;
-  
-  RecentProjectItem({super.key, this.isLeftAlign = false});
-  final List<String> usedStacks = ["Flutter", "Node.js", "Visual Studio"];
+  final Project project;
+
+  const RecentProjectItem({super.key, required this.project, this.isLeftAlign = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class RecentProjectItem extends StatelessWidget {
             child: Container(
               width: size.width * 0.5,
               height: size.height * 0.6,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage('assets/images/website.png'),
+                image: NetworkImage(project.backgroundUrl),
                 fit: BoxFit.fill,
               )),
             ),
@@ -41,9 +42,9 @@ class RecentProjectItem extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                const Text(
-                  "Project 1",
-                  style: TextStyle(
+                 Text(
+                  project.name,
+                  style:const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -65,10 +66,10 @@ class RecentProjectItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Expanded(
+                           Expanded(
                             child: Text(
-                              "Something about project tat i would like to know about.It is not so crrect but its wrong.",
-                              style: TextStyle(
+                              project.description,
+                              style:const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w900,
                                 color: Colors.black,
@@ -83,13 +84,13 @@ class RecentProjectItem extends StatelessWidget {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
-                              itemCount: usedStacks.length,
+                              itemCount: project.techStacks.length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding:
                                       const EdgeInsets.only(right: 16),
                                   child: Text(
-                                    usedStacks[index],
+                                    project.techStacks[index],
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
