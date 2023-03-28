@@ -3,7 +3,7 @@ import 'package:my_portfolio/constants/app_constants.dart';
 import 'package:my_portfolio/models/section.dart';
 import 'package:my_portfolio/widgets/header/header_item.dart';
 
-class Header extends StatefulWidget {
+class Header extends StatelessWidget {
   final ValueNotifier<int?> navItemNotifier;
   final ValueNotifier<bool> isHeaderItemPressed;
 
@@ -16,68 +16,69 @@ class Header extends StatefulWidget {
       required this.sectionNotifier});
 
   @override
-  State<Header> createState() => _HeaderState();
-}
-
-class _HeaderState extends State<Header> {
-  @override
-  void initState() {
-    super.initState();
-    widget.sectionNotifier.addListener(() => setState(() {}));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          HeaderItem(
-            name: AppConstants.aboutSection,
-            onTap: () {
-              widget.navItemNotifier.value = 1;
-              widget.isHeaderItemPressed.value = true;
-            },
-            sectionNotifier: widget.sectionNotifier,
-            isSelected: sectionIndex == 1,
-          ),
-          HeaderItem(
-            name:  AppConstants.experienceSection,
-            onTap: () {
-              widget.navItemNotifier.value = 2;
-              widget.isHeaderItemPressed.value = true;
-            },
-            sectionNotifier: widget.sectionNotifier,
-            isSelected: sectionIndex == 2,
-          ),
-          HeaderItem(
-            name:  AppConstants.projectSection,
-            onTap: () {
-              widget.navItemNotifier.value = 3;
-              widget.isHeaderItemPressed.value = true;
-            },
-            sectionNotifier: widget.sectionNotifier,
-            isSelected: sectionIndex == 3,
-          ),
-          HeaderItem(
-            name:  AppConstants.contactSection,
-            onTap: () {
-              widget.navItemNotifier.value = 4;
-              widget.isHeaderItemPressed.value = true;
-            },
-            sectionNotifier: widget.sectionNotifier,
-            isSelected: sectionIndex == 4,
-          ),
-        ],
-      ),
-    );
+    return ValueListenableBuilder(
+        valueListenable: sectionNotifier,
+        builder: (context, value, child) {
+          return Container(
+            width: double.infinity,
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                HeaderItem(
+                    name: AppConstants.aboutSection,
+                    isSelected: sectionIndex == 1,
+                    sectionNotifier: sectionNotifier,
+                    onTap: () {
+                      // navItemNotifier.value = 1;
+                      // isHeaderItemPressed.value = true;
+                      sectionNotifier.value = Section(
+                          sectionName: AppConstants.aboutSection,
+                          source: UpdateSource.click);
+                    }),
+                HeaderItem(
+                    name: AppConstants.experienceSection,
+                    isSelected: sectionIndex == 2,
+                    sectionNotifier: sectionNotifier,
+                    onTap: () {
+                      // navItemNotifier.value = 1;
+                      // isHeaderItemPressed.value = true;
+                      sectionNotifier.value = Section(
+                          sectionName: AppConstants.experienceSection,
+                          source: UpdateSource.click);
+                    }),
+                HeaderItem(
+                    name: AppConstants.projectSection,
+                    isSelected: sectionIndex == 3,
+                    sectionNotifier: sectionNotifier,
+                    onTap: () {
+                      // navItemNotifier.value = 1;
+                      // isHeaderItemPressed.value = true;
+                      sectionNotifier.value = Section(
+                          sectionName: AppConstants.projectSection,
+                          source: UpdateSource.click);
+                    }),
+                HeaderItem(
+                    name: AppConstants.contactSection,
+                    isSelected: sectionIndex == 4,
+                    sectionNotifier: sectionNotifier,
+                    onTap: () {
+                      // navItemNotifier.value = 1;
+                      // isHeaderItemPressed.value = true;
+                      sectionNotifier.value = Section(
+                          sectionName: AppConstants.contactSection,
+                          source: UpdateSource.click);
+                    }),
+              ],
+            ),
+          );
+        });
   }
 
   // returns index of current section
   int get sectionIndex {
-    final sectionName = widget.sectionNotifier.value?.sectionName;
+    final sectionName = sectionNotifier.value?.sectionName;
     final index = AppConstants.sections
         .indexWhere((element) => element.sectionName == sectionName);
     return index > -1 ? index : 0;
