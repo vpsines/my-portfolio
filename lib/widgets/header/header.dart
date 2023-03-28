@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/constants/app_constants.dart';
+import 'package:my_portfolio/models/section.dart';
 import 'package:my_portfolio/widgets/header/header_item.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   final ValueNotifier<int?> navItemNotifier;
   final ValueNotifier<bool> isHeaderItemPressed;
+
+  final ValueNotifier<Section?> sectionNotifier;
 
   const Header(
       {super.key,
       required this.navItemNotifier,
-      required this.isHeaderItemPressed});
+      required this.isHeaderItemPressed,
+      required this.sectionNotifier});
+
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  @override
+  void initState() {
+    super.initState();
+    widget.sectionNotifier.addListener(() => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +35,51 @@ class Header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           HeaderItem(
-              name: "ABOUT",
-              onTap: () {
-                navItemNotifier.value = 1;
-                isHeaderItemPressed.value = true;
-              }),
+            name: AppConstants.aboutSection,
+            onTap: () {
+              widget.navItemNotifier.value = 1;
+              widget.isHeaderItemPressed.value = true;
+            },
+            sectionNotifier: widget.sectionNotifier,
+            isSelected: sectionIndex == 1,
+          ),
           HeaderItem(
-              name: "EXPERIENCES",
-              onTap: () {
-                navItemNotifier.value = 2;
-                isHeaderItemPressed.value = true;
-              }),
+            name:  AppConstants.experienceSection,
+            onTap: () {
+              widget.navItemNotifier.value = 2;
+              widget.isHeaderItemPressed.value = true;
+            },
+            sectionNotifier: widget.sectionNotifier,
+            isSelected: sectionIndex == 2,
+          ),
           HeaderItem(
-              name: "PROJECTS",
-              onTap: () {
-                navItemNotifier.value = 3;
-                isHeaderItemPressed.value = true;
-              }),
+            name:  AppConstants.projectSection,
+            onTap: () {
+              widget.navItemNotifier.value = 3;
+              widget.isHeaderItemPressed.value = true;
+            },
+            sectionNotifier: widget.sectionNotifier,
+            isSelected: sectionIndex == 3,
+          ),
           HeaderItem(
-              name: "CONTACT",
-              onTap: () {
-                navItemNotifier.value = 4;
-                isHeaderItemPressed.value = true;
-              }),
+            name:  AppConstants.contactSection,
+            onTap: () {
+              widget.navItemNotifier.value = 4;
+              widget.isHeaderItemPressed.value = true;
+            },
+            sectionNotifier: widget.sectionNotifier,
+            isSelected: sectionIndex == 4,
+          ),
         ],
       ),
     );
+  }
+
+  // returns index of current section
+  int get sectionIndex {
+    final sectionName = widget.sectionNotifier.value?.sectionName;
+    final index = AppConstants.sections
+        .indexWhere((element) => element.sectionName == sectionName);
+    return index > -1 ? index : 0;
   }
 }
