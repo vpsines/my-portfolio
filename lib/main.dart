@@ -22,13 +22,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late PageRouterDelegate pageRouterDelegate;
   late PageRouteInformationParser pageRouteInformationParser;
-  final _pages = AppConstants.validPages;
+  final _pages = AppConstants.validSections;
 
   @override
   void initState() {
     super.initState();
-    pageRouterDelegate = PageRouterDelegate(pages: _pages);
-    pageRouteInformationParser = PageRouteInformationParser(routes: _pages);
+    pageRouterDelegate = PageRouterDelegate(sections: _pages);
+    pageRouteInformationParser = PageRouteInformationParser(sections: _pages);
   }
 
   @override
