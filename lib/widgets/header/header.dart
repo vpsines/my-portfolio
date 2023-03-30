@@ -4,23 +4,16 @@ import 'package:my_portfolio/models/section.dart';
 import 'package:my_portfolio/widgets/header/header_item.dart';
 
 class Header extends StatelessWidget {
-  final ValueNotifier<int?> navItemNotifier;
-  final ValueNotifier<bool> isHeaderItemPressed;
-
   final ValueNotifier<Section?> sectionNotifier;
 
-  const Header(
-      {super.key,
-      required this.navItemNotifier,
-      required this.isHeaderItemPressed,
-      required this.sectionNotifier});
+  const Header({super.key, required this.sectionNotifier});
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable: sectionNotifier,
         builder: (context, value, child) {
-          return Container(
+          return SizedBox(
             width: double.infinity,
             height: 50,
             child: Row(
@@ -31,10 +24,9 @@ class Header extends StatelessWidget {
                     isSelected: sectionIndex == 1,
                     sectionNotifier: sectionNotifier,
                     onTap: () {
-                      // navItemNotifier.value = 1;
-                      // isHeaderItemPressed.value = true;
                       sectionNotifier.value = Section(
                           sectionName: AppConstants.aboutSection,
+                          index: 1,
                           source: UpdateSource.click);
                     }),
                 HeaderItem(
@@ -42,10 +34,9 @@ class Header extends StatelessWidget {
                     isSelected: sectionIndex == 2,
                     sectionNotifier: sectionNotifier,
                     onTap: () {
-                      // navItemNotifier.value = 1;
-                      // isHeaderItemPressed.value = true;
                       sectionNotifier.value = Section(
                           sectionName: AppConstants.experienceSection,
+                          index: 2,
                           source: UpdateSource.click);
                     }),
                 HeaderItem(
@@ -53,10 +44,9 @@ class Header extends StatelessWidget {
                     isSelected: sectionIndex == 3,
                     sectionNotifier: sectionNotifier,
                     onTap: () {
-                      // navItemNotifier.value = 1;
-                      // isHeaderItemPressed.value = true;
                       sectionNotifier.value = Section(
                           sectionName: AppConstants.projectSection,
+                          index: 3,
                           source: UpdateSource.click);
                     }),
                 HeaderItem(
@@ -64,10 +54,9 @@ class Header extends StatelessWidget {
                     isSelected: sectionIndex == 4,
                     sectionNotifier: sectionNotifier,
                     onTap: () {
-                      // navItemNotifier.value = 1;
-                      // isHeaderItemPressed.value = true;
                       sectionNotifier.value = Section(
                           sectionName: AppConstants.contactSection,
+                          index: 4,
                           source: UpdateSource.click);
                     }),
               ],

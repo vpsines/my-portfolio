@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/models/section.dart';
 import 'package:my_portfolio/widgets/body/about/about.dart';
 import 'package:my_portfolio/providers/data_provider.dart';
 import 'package:my_portfolio/widgets/body/body.dart';
@@ -12,28 +12,28 @@ import 'package:my_portfolio/widgets/social/social_bar.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-
+  final ValueNotifier<Section?> sectionNotifier;
   final ValueNotifier<String?> currentPageNotifier;
-  const HomeScreen({super.key, required this.currentPageNotifier});
+  const HomeScreen(
+      {super.key,
+      required this.sectionNotifier,
+      required this.currentPageNotifier});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late ValueNotifier<int?> headerNotifier;
-  final ValueNotifier<bool> isHeaderItemPressed = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
-    setPageIndex();
-        loadData();
+    loadData();
   }
 
-  Future<void> loadData() async{
+  Future<void> loadData() async {
     await context.read<DataProvider>().initData();
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,19 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 title: Header(
-                  navItemNotifier: headerNotifier,
-                  isHeaderItemPressed: isHeaderItemPressed,
+                  sectionNotifier: widget.sectionNotifier,
                 ))),
         body: Stack(
           children: [
-            ValueListenableBuilder(
-                valueListenable: isHeaderItemPressed,
-                builder: (BuildContext context, bool? value, Widget? child) {
-                  return BodyWidget(
-                    pageNotifier: headerNotifier,
-                    isHeaderItemPressed: isHeaderItemPressed,
-                  );
-                }),
+            BodyWidget(
+              sectionNotifier: widget.sectionNotifier,
+            ),
             Positioned(
                 left: 0,
                 top: MediaQuery.of(context).size.height * 0.3,
@@ -81,36 +75,5 @@ class _HomeScreenState extends State<HomeScreen> {
                 ))
           ],
         ));
-  }
-
-  void setPageIndex() {
-    int index = 0;
-
-    if (widget.currentPageNotifier.value != null) {
-      switch (widget.currentPageNotifier.value) {
-        case IntroWidget.pageName:
-          index = 0;
-          break;
-        case About.pageName:
-          index = 1;
-          break;
-        case Experiences.pageName:
-          index = 2;
-          break;
-        case Projects.pageName:
-          index = 3;
-          break;
-        case Contact.pageName:
-          index = 4;
-          break;
-        default:
-          index = 4;
-          break;
-      }
-    }
-
-    setState(() {
-      headerNotifier = ValueNotifier(index);
-    });
   }
 }
