@@ -6,9 +6,8 @@ class PageConfiguration {
       : sectionName = null,
         unknown = false;
 
-  PageConfiguration.page({required sectionName})
-      : sectionName = sectionName,
-        unknown = false;
+  PageConfiguration.page({required this.sectionName})
+      : unknown = false;
 
   PageConfiguration.unknown()
       : unknown = true,

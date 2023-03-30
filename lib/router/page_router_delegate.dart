@@ -42,7 +42,7 @@ class PageRouterDelegate extends RouterDelegate<PageConfiguration>
 
     // add listeners
     Listenable.merge([_pageNotifier, _sectionNotifier, _unknownStateNotifier])
-      ..addListener(() {
+      .addListener(() {
         if (kDebugMode) {
           print('notifying router widget');
         }
