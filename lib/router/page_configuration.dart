@@ -1,23 +1,23 @@
 class PageConfiguration {
-  final String? pageName;
+  final String? sectionName;
   final bool unknown;
 
   PageConfiguration.home()
-      : pageName = null,
+      : sectionName = null,
         unknown = false;
 
-  PageConfiguration.page({required pageName})
-      : pageName = pageName,
+  PageConfiguration.page({required sectionName})
+      : sectionName = sectionName,
         unknown = false;
 
   PageConfiguration.unknown()
       : unknown = true,
-        pageName = null;
+        sectionName = null;
 
   bool get isUnknown => unknown == true;
 
-  bool get isHomePage => unknown == false && pageName == null;
+  bool get isHomePage => unknown == false && sectionName == null;
 
-  bool get isPage => unknown == false && pageName != null;
+  bool get isPage => unknown == false && sectionName != null;
 
 }

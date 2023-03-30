@@ -5,9 +5,9 @@ import 'package:my_portfolio/screens/unknown_screen.dart';
 
 class PageRouteInformationParser
     extends RouteInformationParser<PageConfiguration> {
-  final List<String> routes;
+  final List<String> sections;
 
-  PageRouteInformationParser({required this.routes});
+  PageRouteInformationParser({required this.sections});
 
   @override
   Future<PageConfiguration> parseRouteInformation(
@@ -18,10 +18,10 @@ class PageRouteInformationParser
       // length == 0
       return PageConfiguration.home();
     } else if (uri.pathSegments.length == 1) {
-      final pageName = uri.pathSegments[0].toLowerCase();
+      final sectionName = uri.pathSegments[0].toLowerCase();
 
-      if (_isValidPages(pageName)) {
-        return PageConfiguration.page(pageName: pageName);
+      if (_isValidSections(sectionName)) {
+        return PageConfiguration.page(sectionName: sectionName);
       } else {
         return PageConfiguration.unknown();
       }
@@ -35,16 +35,16 @@ class PageRouteInformationParser
     if (configuration.isUnknown) {
       return const RouteInformation(location: UnkownScreen.routeName);
     } else {
-      final pageName = configuration.pageName;
-      if (pageName != null) {
-        return RouteInformation(location: '/$pageName');
+      final sectionName = configuration.sectionName;
+      if (sectionName != null) {
+        return RouteInformation(location: '/$sectionName');
       } else {
         return const RouteInformation(location: '/');
       }
     }
   }
 
-  bool _isValidPages(String pageName) {
-    return AppConstants.validPages.contains(pageName);
+  bool _isValidSections(String sectionName) {
+    return AppConstants.validSections.contains(sectionName);
   }
 }
