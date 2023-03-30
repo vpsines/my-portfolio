@@ -4,6 +4,8 @@ import 'package:my_portfolio/providers/data_provider.dart';
 import 'package:provider/provider.dart';
 
 class Experiences extends StatefulWidget {
+  static const String pageName = 'experiences';
+
   const Experiences({super.key});
 
   @override

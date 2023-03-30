@@ -5,6 +5,8 @@ import 'package:my_portfolio/widgets/body/about/skills_bar.dart';
 import 'package:provider/provider.dart';
 
 class About extends StatelessWidget {
+  static const String pageName = 'about';
+
   const About({super.key});
 
   @override

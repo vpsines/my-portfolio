@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/constants/app_constants.dart';
+import 'package:my_portfolio/models/section.dart';
 import 'package:my_portfolio/widgets/body/about/about.dart';
 import 'package:my_portfolio/widgets/body/contact/contact.dart';
 import 'package:my_portfolio/widgets/body/experiences/experiences.dart';
@@ -7,11 +9,11 @@ import 'package:my_portfolio/widgets/body/projects/projects.dart';
 import 'package:my_portfolio/widgets/footer/footer.dart';
 
 class BodyWidget extends StatefulWidget {
-  final ValueNotifier<bool> isHeaderItemPressed;
-  final ValueNotifier<int?> sectionNotifier;
+
+  final ValueNotifier<Section?> sectionNotifier;
+
   const BodyWidget(
       {super.key,
-      required this.isHeaderItemPressed,
       required this.sectionNotifier});
 
   @override
@@ -19,16 +21,20 @@ class BodyWidget extends StatefulWidget {
 }
 
 class _BodyWidgetState extends State<BodyWidget> {
+
   final ScrollController _scrollController = ScrollController();
   List<GlobalKey> keys = [for (int i = 0; i < 5; i++) GlobalKey()];
 
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollToSection();
-      widget.isHeaderItemPressed.addListener(() {
-        if (_scrollController.hasClients && widget.isHeaderItemPressed.value) {
+      widget.sectionNotifier.addListener(() {
+        final isScroll = widget.sectionNotifier.value?.source == UpdateSource.scroll;
+
+        if (_scrollController.hasClients && !isScroll) {
           scrollToSection();
         }
       });
@@ -83,20 +89,36 @@ class _BodyWidgetState extends State<BodyWidget> {
   }
 
   void scrollToSection() {
-    print('scrolled');
     Scrollable.ensureVisible(
-      keys[widget.sectionNotifier.value!].currentContext!,
+      keys[widget.sectionNotifier.value == null ? 0:widget.sectionNotifier.value!.index].currentContext!,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
-    widget.isHeaderItemPressed.value = false;
   }
 
   void onUserScrolled(double offset) {
     double totalItemHeight = 0;
     for (int i = 0; i < keys.length; i++) {
       totalItemHeight += keys[i].currentContext!.size!.height;
-      if (totalItemHeight > offset) {
+      if (totalItemHeight >= offset) {
+        final index = i;
+        var sectionName = AppConstants.aboutSection;
+
+        if(index == 1){
+          sectionName = AppConstants.aboutSection;
+        }else if(index == 2){
+          sectionName = AppConstants.experienceSection;
+
+        }else if(index == 3){
+          sectionName = AppConstants.projectSection;
+
+        }else if(index == 4){
+          sectionName = AppConstants.contactSection;
+
+        }else{
+          sectionName = AppConstants.introSection;
+        }
+        widget.sectionNotifier.value = Section(sectionName: sectionName, source: UpdateSource.scroll, index: index);
         break;
       }
     }

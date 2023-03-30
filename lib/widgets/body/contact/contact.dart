@@ -3,6 +3,8 @@ import 'package:my_portfolio/widgets/base/custom_button.dart';
 import 'package:my_portfolio/widgets/base/custom_textfield.dart';
 
 class Contact extends StatefulWidget {
+    static const String pageName = 'contact';
+
   const Contact({super.key});
 
   @override

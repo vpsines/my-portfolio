@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class IntroWidget extends StatelessWidget {
+  static const String pageName = 'intro';
+
   const IntroWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-        var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
 
     return SizedBox(
       height: size.height * 0.9,
       child: Padding(
-        padding:  EdgeInsets.only(top: size.height * 0.1,bottom: 50),
+        padding: EdgeInsets.only(top: size.height * 0.1, bottom: 50),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Column(
